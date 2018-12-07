@@ -14,7 +14,8 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 */
-
+#include <iostream>
+using namespace std;
 
 //====================================
 void ino(int x)
@@ -26,7 +27,7 @@ void ino(int x)
     }
   else
     {
-      fprintf(f_ino,"%d %d\n",g_curStep+1,x);
+      //fprintf(f_ino,"%d %d\n",g_curStep+1,x);
     }
 }
 
@@ -61,22 +62,22 @@ void interruptPinValues()
 void logEvent(char ev[])
 //====================================
 {
-  fprintf(f_event,"+ %d ? %s\n",g_curStep,ev);
+  //fprintf(f_event,"+ %d ? %s\n",g_curStep,ev);
 }
 
 //====================================
 void logCust(char ev[])
 //====================================
 {
-  if(strstr(ev,"no-text") == NULL)
-    fprintf(f_cust,"%d %s\n",g_curStep,ev);
+  // if(strstr(ev,"no-text") == NULL)
+    //fprintf(f_cust,"%d %s\n",g_curStep,ev);
 }
 
 //====================================
 void logStatus()
 //====================================
 {
-  //fprintf(s_log,"%d %s\n",g_curStep,ev);
+  ////fprintf(s_log,"%d %s\n",g_curStep,ev);
 }
 
 //====================================
@@ -89,7 +90,7 @@ int servuinoFunc(int event, int pin, int value, const char *p, unsigned char uc)
 
   strcpy(custText,"no-text");
 
-  g_curStep++;
+  // g_curStep++;
 
   updateFromRegister();
   clearRW();
@@ -210,12 +211,12 @@ int servuinoFunc(int event, int pin, int value, const char *p, unsigned char uc)
   if(event == S_DELAY)
     {
       sprintf(eventText,"delay %d ms",pin);
-      fprintf(f_time,"+ %d %d\n",g_curStep,pin*1000);
+      //fprintf(f_time,"+ %d %d\n",g_curStep,pin*1000);
     }
   if(event == S_DELAY_MS)
     {
       sprintf(eventText,"delay %d us",pin);
-      fprintf(f_time,"+ %d %d\n",g_curStep,pin);
+      //fprintf(f_time,"+ %d %d\n",g_curStep,pin);
     }
   if(event == S_ATTACH_INTERRUPT_LOW)
     {
@@ -255,91 +256,91 @@ int servuinoFunc(int event, int pin, int value, const char *p, unsigned char uc)
   if(event == S_SERIAL_PRINT_INT)
     {
       sprintf(eventText,"Serial.print(int) %d",pin);
-      fprintf(f_serial,"%d SL [%d]\n",g_curStep,pin);
+      //fprintf(f_serial,"%d SL [%d]\n",g_curStep,pin);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINT_INT_BASE)
     {
       sprintf(eventText,"Serial.print(int,base) %d base=%d",pin,value);
-      fprintf(f_serial,"%d SL [%d]\n",g_curStep,pin);
+      //fprintf(f_serial,"%d SL [%d]\n",g_curStep,pin);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINT_CHAR)
     {
       sprintf(eventText,"Serial.print(char) %s",p);
-      fprintf(f_serial,"%d SL [%s]\n",g_curStep,p);
+      //fprintf(f_serial,"%d SL [%s]\n",g_curStep,p);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINT_UCHAR)
     {
       sprintf(eventText,"Serial.print(uchar) %c",uc);
-      fprintf(f_serial,"%d SL [%c]\n",g_curStep,uc);
+      //fprintf(f_serial,"%d SL [%c]\n",g_curStep,uc);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINT_STRING)
     {
       sprintf(eventText,"Serial.print(string) %s",p); 
-      fprintf(f_serial,"%d SL [%s]\n",g_curStep,p);
+      //fprintf(f_serial,"%d SL [%s]\n",g_curStep,p);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINT_SSTRING)
     {
       sprintf(eventText,"Serial.print(String) %s",p);
-      fprintf(f_serial,"%d SL [%s]\n",g_curStep,p);
+      //fprintf(f_serial,"%d SL [%s]\n",g_curStep,p);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINTLN_INT)
     { 
       sprintf(eventText,"Serial.println(int) %d",pin);
-      fprintf(f_serial,"%d NL [%d]\n",g_curStep,pin);
+      //fprintf(f_serial,"%d NL [%d]\n",g_curStep,pin);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINTLN_INT_BASE)
     {
       sprintf(eventText,"Serial.println(int,base) %d base=%d",pin,value);
-      fprintf(f_serial,"%d NL [%d]\n",g_curStep,pin);
+      //fprintf(f_serial,"%d NL [%d]\n",g_curStep,pin);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINTLN_CHAR)
     { 
       sprintf(eventText,"Serial.println(char) %s",p);
-      fprintf(f_serial,"%d NL [%s]\n",g_curStep,p);
+      //fprintf(f_serial,"%d NL [%s]\n",g_curStep,p);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINTLN_UCHAR)
     { 
       sprintf(eventText,"Serial.println(uchar) %c",uc);
-      fprintf(f_serial,"%d NL [%c]\n",g_curStep,*p);
+      //fprintf(f_serial,"%d NL [%c]\n",g_curStep,*p);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINTLN_STRING)
     {
       sprintf(eventText,"Serial.println(string) %s",p); 
-      fprintf(f_serial,"%d NL [%s]\n",g_curStep,p);
+      //fprintf(f_serial,"%d NL [%s]\n",g_curStep,p);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINTLN_SSTRING)
     {
       sprintf(eventText,"Serial.println(String) %s",p);
-      fprintf(f_serial,"%d NL [%s]\n",g_curStep,p);
+      //fprintf(f_serial,"%d NL [%s]\n",g_curStep,p);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
   if(event == S_SERIAL_PRINTLN_VOID)
     {
       sprintf(eventText,"Serial.println(void)");
-      fprintf(f_serial,"%d NL []\n",g_curStep);
+      //fprintf(f_serial,"%d NL []\n",g_curStep);
       if(g_serialMode != S_ON) 
 	errorLog("Serial print without serial.begin",g_curStep);
     }
@@ -378,13 +379,13 @@ int servuinoFunc(int event, int pin, int value, const char *p, unsigned char uc)
     }
 
 
-  logEvent(eventText);
-  logCust(custText);
+  // logEvent(eventText);
+  // logCust(custText);
   writeStatus();
 
-  if(g_curStep == g_simulationLength) stopEncoding();
+  // if(g_curStep == g_simulationLength) stopEncoding();
 
-  if(g_doInterrupt == S_YES && g_ongoingInterrupt == S_NO)interruptNow();
+  // if(g_doInterrupt == S_YES && g_ongoingInterrupt == S_NO)interruptNow();
 
   return(res);
 }
@@ -535,33 +536,57 @@ void writeStatus()
 {
   int i;
 
-  fprintf(f_pinmod,"+ %d ? ",g_curStep);
+  //fprintf(f_pinmod,"+ %d ? ",g_curStep);
+  std::cout << "pinMod:";
+  // printf("pinMod:");
   for(i=0;i<g_nTotPins;i++)
     {
-      fprintf(f_pinmod,"%d,",x_pinMode[i]);
+      //fprintf(f_pinmod,"%d,",x_pinMode[i]);
+      // printf("%d,",x_pinMode[i]);
+      std::cout << x_pinMode[i] << ",";
     }
-  fprintf(f_pinmod,"\n");
+  //fprintf(f_pinmod,"\n");
+  // printf("\n");
+  std::cout << "\n";
   
-  fprintf(f_digval,"+ %d ? ",g_curStep);
+  //fprintf(f_digval,"+ %d ? ",g_curStep);
+  // printf("digVal:");
+  std::cout << "digVal:";
   for(i=0;i<g_nTotPins;i++)
     {
-      fprintf(f_digval,"%d,",x_pinDigValue[i]);
+      //fprintf(f_digval,"%d,",x_pinDigValue[i]);
+      // printf("%d,",x_pinDigValue[i]);
+      std::cout << x_pinDigValue[i] << ",";
     }
-  fprintf(f_digval,"\n");
+  //fprintf(f_digval,"\n");
+  // printf("\n");
+  std::cout << "\n";
   
-  fprintf(f_anaval,"+ %d ? ",g_curStep);
+  //fprintf(f_anaval,"+ %d ? ",g_curStep);
+  // printf("anaVal:");
+  std::cout << "anaVal:";
   for(i=0;i<g_nTotPins;i++)
     {
-      fprintf(f_anaval,"%d,",x_pinAnaValue[i]);
+      //fprintf(f_anaval,"%d,",x_pinAnaValue[i]);
+      // printf("%d,",x_pinAnaValue[i]);
+      std::cout << x_pinAnaValue[i] << ",";
     }
-  fprintf(f_anaval,"\n");
+  //fprintf(f_anaval,"\n");
+  // printf("\n");
+  std::cout << "\n";
   
-  fprintf(f_pinrw,"+ %d ? ",g_curStep);
+  //fprintf(f_pinrw,"+ %d ? ",g_curStep);
+  // printf("pinRW:");
+  std::cout << "pinRW:";
   for(i=0;i<g_nTotPins;i++)
     {
-      fprintf(f_pinrw,"%d,",x_pinRW[i]);
+      //fprintf(f_pinrw,"%d,",x_pinRW[i]);
+      // printf("%d,",x_pinRW[i]);
+      std::cout << x_pinRW[i] << ",";
     }
-  fprintf(f_pinrw,"\n");
+  //fprintf(f_pinrw,"\n");
+  // printf("\n");
+  std::cout << "\n";
 
 }
 
@@ -675,16 +700,16 @@ void statusLog()
     }
   z[i]='\0';
   
-  fprintf(s_log,"%d,%s,%d,%d",g_curStep,z,tempA[0],tempD[0]);
+  //fprintf(s_log,"%d,%s,%d,%d",g_curStep,z,tempA[0],tempD[0]);
   if(tempA[0] > 0)
     {
-      for(i=1;i<=tempA[0];i++)fprintf(s_log,",%d,%d",pinA[i],tempA[i]);
+      // for(i=1;i<=tempA[0];i++)//fprintf(s_log,",%d,%d",pinA[i],tempA[i]);
     }
   if(tempD[0] > 0)
     {
-      for(i=1;i<=tempD[0];i++)fprintf(s_log,",%d,%d",pinD[i],tempD[i]);
+      // for(i=1;i<=tempD[0];i++)//fprintf(s_log,",%d,%d",pinD[i],tempD[i]);
     }
-  fprintf(s_log,"\n");
+  //fprintf(s_log,"\n");
 
   registerLog();
 }
@@ -696,10 +721,10 @@ void registerLog()
   if(g_boardType==UNO)
     {
       setPINRegister(g_curStep);
-      fprintf(r_log,"# %d,DDRB=%s,DDRC=%s,DDRD=%s,",g_curStep,int2bin(DDRB,8),int2bin(DDRC,8),int2bin(DDRD,8));
-      fprintf(r_log,"PORTB=%s,PORTC=%s,PORTD=%s,",int2bin(PORTB,8),int2bin(PORTC,8),int2bin(PORTD,8));
-      fprintf(r_log,"PINB=%s,PINC=%s,PIND=%s\n",int2bin(PINB,8),int2bin(PINC,8),int2bin(PIND,8));
-      fprintf(r_log,"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",g_curStep,DDRB,DDRC,DDRD,PORTB,PORTC,PORTD,PINB,PINC,PIND);
+      //fprintf(r_log,"# %d,DDRB=%s,DDRC=%s,DDRD=%s,",g_curStep,int2bin(DDRB,8),int2bin(DDRC,8),int2bin(DDRD,8));
+      //fprintf(r_log,"PORTB=%s,PORTC=%s,PORTD=%s,",int2bin(PORTB,8),int2bin(PORTC,8),int2bin(PORTD,8));
+      //fprintf(r_log,"PINB=%s,PINC=%s,PIND=%s\n",int2bin(PINB,8),int2bin(PINC,8),int2bin(PIND,8));
+      //fprintf(r_log,"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",g_curStep,DDRB,DDRC,DDRD,PORTB,PORTC,PORTD,PINB,PINC,PIND);
     }
 }
 
@@ -779,7 +804,7 @@ void openFiles()
 /*     { */
 /*       errorLog("Unable to open data.custom",0); */
 /*     } */
-/*   fprintf(u_log,"# Servuino Custom Simulation Data Version: %s\n",g_version); */
+/*   //fprintf(u_log,"# Servuino Custom Simulation Data Version: %s\n",g_version); */
 
   // Debug logging INO
   f_ino = fopen("ino.debug","w");
@@ -787,7 +812,7 @@ void openFiles()
     {
       errorLog("Unable to open ino.debug",0);
     }
-  fprintf(f_ino,"# Servuino Debug Information Version: %s\n",g_version);
+  //fprintf(f_ino,"# Servuino Debug Information Version: %s\n",g_version);
 
   // Status of pins
   f_pinmod = fopen("serv.pinmod","w");
@@ -795,7 +820,7 @@ void openFiles()
     {
       errorLog("Unable to open data.status",0);
     }
-  fprintf(f_pinmod,"# Servuino Status Pin Mode Version: %s\n",g_version);
+  //fprintf(f_pinmod,"# Servuino Status Pin Mode Version: %s\n",g_version);
 
   // Status of pins
   f_digval = fopen("serv.digval","w");
@@ -803,7 +828,7 @@ void openFiles()
     {
       errorLog("Unable to open data.status",0);
     }
-  fprintf(f_digval,"# Servuino Status Pin Digital Values Version: %s\n",g_version);
+  //fprintf(f_digval,"# Servuino Status Pin Digital Values Version: %s\n",g_version);
 
   // Status of pins
   f_anaval = fopen("serv.anaval","w");
@@ -811,7 +836,7 @@ void openFiles()
     {
       errorLog("Unable to open data.status",0);
     }
-  fprintf(f_anaval,"# Servuino Status Pin Analog Values Version: %s\n",g_version);
+  //fprintf(f_anaval,"# Servuino Status Pin Analog Values Version: %s\n",g_version);
 
   // Status of pins
   f_pinrw = fopen("serv.pinrw","w");
@@ -819,7 +844,7 @@ void openFiles()
     {
       errorLog("Unable to open data.status",0);
     }
-  fprintf(f_pinrw,"# Servuino Status Pin RW Version: %s\n",g_version);
+  //fprintf(f_pinrw,"# Servuino Status Pin RW Version: %s\n",g_version);
 
 
   // Serial logging
@@ -828,7 +853,7 @@ void openFiles()
     {
       errorLog("Unable to open serv.serial",0);
     }
-  fprintf(f_serial,"# Servuino Serial Simulation Data Version: %s\n",g_version);
+  //fprintf(f_serial,"# Servuino Serial Simulation Data Version: %s\n",g_version);
 
   // Serial logging
   f_time = fopen("serv.time","w");
@@ -836,7 +861,7 @@ void openFiles()
     {
       errorLog("Unable to open serv.time",0);
     }
-  fprintf(f_time,"# Servuino Time Delay (microseconds) Version: %s\n",g_version);
+  //fprintf(f_time,"# Servuino Time Delay (microseconds) Version: %s\n",g_version);
 
   // Register logging
   r_log = fopen("data.register","w");
@@ -844,14 +869,14 @@ void openFiles()
     {
       errorLog("Unable to open data.register",0);
     }
-  fprintf(r_log,"# Servuino Register Data Version: %s\n",g_version);
+  //fprintf(r_log,"# Servuino Register Data Version: %s\n",g_version);
   // serv.event
   f_event = fopen("serv.event","w");
   if(f_event == NULL)
     {
       errorLog("Unable to open data.register",0);
     }
-  fprintf(f_event,"# Servuino Event Log Version: %s\n",g_version);
+  //fprintf(f_event,"# Servuino Event Log Version: %s\n",g_version);
 
   // serv.cust
   f_cust = fopen("serv.cust","w");
@@ -859,7 +884,7 @@ void openFiles()
     {
       errorLog("Unable to open data.register",0);
     }
-  fprintf(f_cust,"# Servuino Cust Log Version: %s\n",g_version);
+  //fprintf(f_cust,"# Servuino Cust Log Version: %s\n",g_version);
 
 }
 
@@ -886,7 +911,7 @@ void errorLog(const char msg[], int x)
 //====================================
 {
   //printf("ServuinoERROR: %s %d\n",msg,x);
-  fprintf(e_log,"ServuinoERROR[step %d]: %s %d\n",g_curStep,msg,x);
+  //fprintf(e_log,"ServuinoERROR[step %d]: %s %d\n",g_curStep,msg,x);
   return;
 }
 
@@ -1237,8 +1262,8 @@ void saveScenario() // Servuino input/output
 	{
 	  step = s_digitalStep[k][i];
 	  ok = checkScenario(k,DIG,i,step);
-	  if(ok==0)
-	    fprintf(out,"// SCENDIGPIN %d %d %d\n",i,s_digitalStep[k][i],s_digitalPin[k][i]);
+	  // if(ok==0)
+	    //fprintf(out,"// SCENDIGPIN %d %d %d\n",i,s_digitalStep[k][i],s_digitalPin[k][i]);
 	}
     }
   
@@ -1248,8 +1273,8 @@ void saveScenario() // Servuino input/output
 	{
 	  step = s_analogStep[k][i];
 	  ok = checkScenario(k,ANA,i,step);
-	  if(ok==0)
-	    fprintf(out,"// SCENANAPIN %d %d %d\n",i,s_analogStep[k][i],s_analogPin[k][i]);
+	  // if(ok==0)
+	    //fprintf(out,"// SCENANAPIN %d %d %d\n",i,s_analogStep[k][i],s_analogPin[k][i]);
 	}
     }
   
@@ -1271,44 +1296,44 @@ void saveScenarioExpanded() // Servuino input/output
     {
       errorLog("Unable to open data.scenario",0);
     }
-  fprintf(out,"# Digital: "); 
+  //fprintf(out,"# Digital: "); 
   for(i=0;i<=max_digPin;i++)
     {
-      if(s_digitalStep[0][i] > 0)
-	fprintf(out,"%4d ",i);
+      // if(s_digitalStep[0][i] > 0)
+	//fprintf(out,"%4d ",i);
     }
-  fprintf(out,"\n");
-  fprintf(out,"# Analog: "); 
+  //fprintf(out,"\n");
+  //fprintf(out,"# Analog: "); 
   for(i=0;i<=max_anaPin;i++)
     {
-      if(s_analogStep[0][i] > 0)
-	fprintf(out,"%4d ",i);
+      // if(s_analogStep[0][i] > 0)
+	//fprintf(out,"%4d ",i);
     }
-  fprintf(out,"\n");
+  //fprintf(out,"\n");
 
   for(k=1;k<=g_simulationLength;k++)
     {
-      fprintf(out,"%4d          ",k);     
+      //fprintf(out,"%4d          ",k);     
       for(i=0;i<=max_digPin;i++)
 	{
 	  if(s_digitalStep[0][i] > 0)
 	    {
 	      temp = getDigitalPinValue(i,k);
-	      fprintf(out,"%4d ",temp);
+	      //fprintf(out,"%4d ",temp);
 	      x_pinScenario[i][k] = temp;
 	    }
 	}
-      fprintf(out,"       ");
+      //fprintf(out,"       ");
       for(i=0;i<=max_anaPin;i++)
 	{
 	  if(s_analogStep[0][i] > 0)
 	    {
 	      temp = getAnalogPinValue(i,k);
-	      fprintf(out,"%4d ",temp);
+	      //fprintf(out,"%4d ",temp);
 	      x_pinScenario[i+g_nDigPins][k] = temp;
 	    }
 	}
-      fprintf(out,"\n");      
+      //fprintf(out,"\n");      
     }
  
   fclose(out);
@@ -1339,8 +1364,8 @@ void setPINRegister(int step)
 /* void iLog1(const char *p, int value1) */
 /* //==================================== */
 /* { */
-/*   fprintf(a_log,"* %d %s ? %d\n",currentStep,p,value1); */
-/*   fprintf(u_log,"* %d %s ? %d\n",currentStep,p,value1); */
+/*   //fprintf(a_log,"* %d %s ? %d\n",currentStep,p,value1); */
+/*   //fprintf(u_log,"* %d %s ? %d\n",currentStep,p,value1); */
 /*   return; */
 /* } */
 
@@ -1351,8 +1376,8 @@ void setPINRegister(int step)
 /*   char line[120]; */
   
 /*   strcpy(line,"--------------------"); */
-/*   fprintf(a_log,"= %d ? %s\n",currentStep,line); */
-/*   fprintf(u_log,"= %d ? %s\n",currentStep,line); */
+/*   //fprintf(a_log,"= %d ? %s\n",currentStep,line); */
+/*   //fprintf(u_log,"= %d ? %s\n",currentStep,line); */
 /*   return; */
 /* } */
 /* //==================================== */
@@ -1362,24 +1387,24 @@ void setPINRegister(int step)
 /*   char line[120]; */
   
 /*   sprintf(line,"------ %s ------",t); */
-/*   fprintf(a_log,"= %d ? %s\n",currentStep,line); */
-/*   fprintf(u_log,"= %d ? %s\n",currentStep,line); */
+/*   //fprintf(a_log,"= %d ? %s\n",currentStep,line); */
+/*   //fprintf(u_log,"= %d ? %s\n",currentStep,line); */
 /*   return; */
 /* } */
 /* //==================================== */
 /* void mLog0(const char *p) */
 /* //==================================== */
 /* { */
-/*   fprintf(a_log,"= %d ? %s\n",currentStep,p); */
-/*   fprintf(u_log,"= %d ? %s\n",currentStep,p); */
+/*   //fprintf(a_log,"= %d ? %s\n",currentStep,p); */
+/*   //fprintf(u_log,"= %d ? %s\n",currentStep,p); */
 /*   return; */
 /* } */
 /* //==================================== */
 /* void mLog1(const char *p, int value1) */
 /* //==================================== */
 /* { */
-/*   fprintf(a_log,"= %d ? %s %d\n",currentStep,p,value1); */
-/*   fprintf(u_log,"= %d ? %s %d\n",currentStep,p,value1); */
+/*   //fprintf(a_log,"= %d ? %s %d\n",currentStep,p,value1); */
+/*   //fprintf(u_log,"= %d ? %s %d\n",currentStep,p,value1); */
 /*   return; */
 /* } */
 
@@ -1429,13 +1454,13 @@ void readSketchInfo()
 	      if(p=strstr(row,"loop("))g_row_loop = rows;
 	      if(p=strstr(row,"SKETCH_NAME:"))
 		{
-		  fprintf(f_event,"#%s",row);
+		  //fprintf(f_event,"#%s",row);
 		  q = strstr(p,":");q++;
 		  sscanf(q,"%s",appName);
 		}
 	      if(p=strstr(row,"BOARD_TYPE"))
 		{
-		  fprintf(f_event,"#%s",row);
+		  //fprintf(f_event,"#%s",row);
 		  if(strstr(row,"UNO") != NULL) g_boardType = UNO;
 		  if(strstr(row,"MEGA")!= NULL) g_boardType = MEGA;
 		}
@@ -1451,7 +1476,7 @@ void stopEncoding()
 //====================================
 {
 
-  fprintf(f_event,"# ENDOFSIM\n");
+  //fprintf(f_event,"# ENDOFSIM\n");
   saveScenario();
   //saveScenarioExpanded();
   closeFiles();
@@ -1574,7 +1599,7 @@ void readScenario()
 	      dCount[pin]++;
 	      tmp = dCount[pin];
 	      if(step < s_digitalStep[tmp-1][pin])
-		fprintf(e_log,"Error:Scenario data not given in increasing order: Digital Step=%d Pin=%d\n",step,pin);
+		//fprintf(e_log,"Error:Scenario data not given in increasing order: Digital Step=%d Pin=%d\n",step,pin);
 	      s_digitalStep[tmp][pin]  = step;
 	      s_digitalPin[tmp][pin]   = value;
 	      s_digitalStep[0][pin]    = tmp;
@@ -1588,7 +1613,7 @@ void readScenario()
 	      aCount[pin]++;
 	      tmp = aCount[pin];
 	      if(step < s_analogStep[tmp-1][pin])
-		fprintf(e_log,"Error:Scenario data not given in increasing order: Analog Step=%d Pin=%d\n",step,pin);
+		//fprintf(e_log,"Error:Scenario data not given in increasing order: Analog Step=%d Pin=%d\n",step,pin);
 	      s_analogStep[tmp][pin]   = step;
 	      s_analogPin[tmp][pin]    = value;
 	      s_analogStep[0][pin]     = tmp;

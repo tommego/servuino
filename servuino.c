@@ -153,9 +153,16 @@ void runEncoding(int n)
   servuinoFunc(S_SETUP,0,0,NULL,0);
   setup();
 
-  for(i=0;i<MAX_LOOPS;i++)  
+  // for(i=0;i<MAX_LOOPS;i++)  
+  //   {
+  //     g_curLoop++;
+  //     ino(g_row_loop);
+  //     servuinoFunc(S_LOOP,g_curLoop,0,NULL,0);
+  //     loop();  
+  //   }
+    while(true)  
     {
-      g_curLoop++;
+      // g_curLoop++;
       ino(g_row_loop);
       servuinoFunc(S_LOOP,g_curLoop,0,NULL,0);
       loop();  
@@ -169,65 +176,65 @@ void runEncoding(int n)
 int main(int argc, char *argv[])
 //====================================
 {
-  int x,i;
+ int x,i;
 
-  strcpy(g_version,"0.1.2");
+ strcpy(g_version,"0.1.2");
 
-  openFiles();
-  readSketchInfo();
-  g_nTotPins = setRange(g_boardType);
-  if(g_boardType == UNO)g_nDigPins = MAX_PIN_DIGITAL_UNO;
-  if(g_boardType == MEGA)g_nDigPins = MAX_PIN_DIGITAL_MEGA;
+ openFiles();
+ readSketchInfo();
+ g_nTotPins = setRange(g_boardType);
+ if(g_boardType == UNO)g_nDigPins = MAX_PIN_DIGITAL_UNO;
+ if(g_boardType == MEGA)g_nDigPins = MAX_PIN_DIGITAL_MEGA;
  
-  boardInit();
-  readScenario();
-  readCustom(); // Get customized log text from sketch
+ boardInit();
+ readScenario();
+ readCustom(); // Get customized log text from sketch
 
-  if(argc == 1)
-    {
-      g_simulationLength = 901;
-      g_scenSource = 0;
-      runEncoding(g_simulationLength);
-    }
-  if(argc == 3)
-    {
-      g_simulationLength = atoi(argv[1]);
-      g_scenSource = atoi(argv[2]);
-      readScenario(); // Maybe other source
-      runEncoding(g_simulationLength);
+ if(argc == 1)
+   {
+     g_simulationLength = 901;
+     g_scenSource = 0;
+     runEncoding(g_simulationLength);
+   }
+ if(argc == 3)
+   {
+     g_simulationLength = atoi(argv[1]);
+     g_scenSource = atoi(argv[2]);
+     readScenario(); // Maybe other source
+     runEncoding(g_simulationLength);
 
-    }
-  else if(argc == 8)
-    {
-      // steps, source, pintype, pinno, pinvalue, pinstep,action
-      g_simulationLength = atoi(argv[1]);
-      g_scenSource       =  atoi(argv[2]);
-      g_pinType          =  atoi(argv[3]);
-      g_pinNo            =  atoi(argv[4]);
-      g_pinValue         =  atoi(argv[5]);
-      g_pinStep          =  atoi(argv[6]);
-      g_action           =  atoi(argv[7]);
+   }
+ else if(argc == 8)
+   {
+     // steps, source, pintype, pinno, pinvalue, pinstep,action
+     g_simulationLength = atoi(argv[1]);
+     g_scenSource       =  atoi(argv[2]);
+     g_pinType          =  atoi(argv[3]);
+     g_pinNo            =  atoi(argv[4]);
+     g_pinValue         =  atoi(argv[5]);
+     g_pinStep          =  atoi(argv[6]);
+     g_action           =  atoi(argv[7]);
 
-      readScenario();// read from data.scen
+     readScenario();// read from data.scen
 
-      max_steps = g_simulationLength;
+     max_steps = g_simulationLength;
 
-      if(g_pinType == DIG)
-	{ 
+     if(g_pinType == DIG)
+	{
 	  if(g_action == S_ADD)   x = insDigitalPinValue(g_pinNo,g_pinStep,g_pinValue);
 	  if(g_action == S_DELETE)x = delDigitalPinValue(g_pinNo,g_pinStep);
 	}
-      if(g_pinType == ANA)
-	{ 
+     if(g_pinType == ANA)
+	{
 	  if(g_action == S_ADD)   x = insAnalogPinValue(g_pinNo,g_pinStep,g_pinValue);
 	  if(g_action == S_DELETE)x = delAnalogPinValue(g_pinNo,g_pinStep);
 	}
-      runEncoding(g_simulationLength);
-    }
-  else
-    errorLog("Servuino not executed",0);
+     runEncoding(g_simulationLength);
+   }
+ else
+   errorLog("Servuino not executed",0);
 
-  closeFiles();
+ closeFiles();
 }
  
 
